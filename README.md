@@ -5,7 +5,7 @@
 
 # Cerber
 
-Authentication & authorization middleware for [Spiral](kwiniarski/spiral) framework
+Authentication & authorization middleware for [Spiral](https://github.com/kwiniarski/spiral) framework
 
 
 ## Installation
