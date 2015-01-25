@@ -98,6 +98,6 @@ module.exports = function (grunt) {
   grunt.registerTask('build', ['clean', 'copy', 'blanket']);
   grunt.registerTask('test', ['build', 'mochaTest:test', 'clean']);
   grunt.registerTask('coverage', ['build', 'mochaTest:coverageHtml']);
-  grunt.registerTask('travis', ['build', 'mochaTest:coverageLcov', 'codeclimate', 'clean']);
+  grunt.registerTask('travis', ['build', 'mochaTest:test', 'mochaTest:coverageLcov', 'codeclimate', 'clean']);
 };
 
