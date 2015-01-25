@@ -1,6 +1,6 @@
 {
   "name": "spiral-cerber",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Authentication & authorization middleware for Spiral framework",
   "main": "lib/cerber",
   "repository": {
