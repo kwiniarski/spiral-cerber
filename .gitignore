@@ -1,0 +1,18 @@
+# ignore file system metadata
+.directory
+
+# ignore editor configuration data
+nbproject
+.brackets.json
+.idea
+
+# ignore installed dependencies
+node_modules
+
+# temporary data
+.grunt
+npm-debug.log
+Gruntfile.json
+codeclimate.txt
+
+

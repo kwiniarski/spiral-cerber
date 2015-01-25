@@ -1,0 +1,3 @@
+--reporter min
+--require test/bootstrap
+--recursive

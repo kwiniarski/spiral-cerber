@@ -1,0 +1,11 @@
+{
+  "forin": false,
+  "plusplus": false,
+  "laxcomma": true,
+  "laxbreak": true,
+  "node": true,
+  "mocha": true,
+
+  "indent": 2,
+  "quotmark": "single"
+}

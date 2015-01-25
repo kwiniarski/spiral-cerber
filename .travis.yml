@@ -1,0 +1,12 @@
+language: node_js
+node_js:
+- '0.10'
+script: grunt travis
+deploy:
+  provider: npm
+  email: krzysiek@codilogy.com
+  api_key:
+    secure: DY5jPrmjzeAGgmv5rk2OlVhQjIptJaCvyfcfTxQzp4y1wE6j2zmSG4xkkHIcrsonRyyW3RRI/IuBZwdwex5OfuJ2qOd3UCJYTr+lVg3QubRBj4XaxloQVoMuYMIclngYZ5Kvnx41NwT1KCu7pTEZdn0VBOKgQRZMafSKBDyIhZU=
+  on:
+    tags: true
+    repo: kwiniarski/spiral-cerber
