@@ -1,7 +1,6 @@
 'use strict';
 
-var util = require('../../lib/util')
-  , cerberFactory = require('../../lib/cerber')
+var util = require('../mocks/util')
   , AuthorizationHeaderMock = require('../mocks/authorization-header')
   , RequestMock = require('../mocks/request')
   , usersFixture = require('../fixtures/users')
@@ -21,9 +20,20 @@ describe('cerber factory', function () {
           && typeof value.status === 'number';
       }, "CerberError");
 
-	beforeEach(function () {
+  before(function () {
+    mockery.registerMock('./util', util);
+  });
 
-		var now = util.utcTime(1391252400000) // Sat Feb 01 2014 12:00:00 GMT+0100
+  after(function () {
+    mockery.deregisterMock('./util');
+  });
+
+	beforeEach(function () {
+    mockery.enable({
+      warnOnUnregistered: false
+    });
+
+		var now = util.utcNow()
       , config = {
           apiKey: 'key',
           identifyCallback: function () {}
@@ -47,14 +57,12 @@ describe('cerber factory', function () {
       .set('id', userFixture.id)
       .set('token', userFixture.key);
 
-    cerber = cerberFactory(config);
+    cerber = require('../../lib/cerber')(config);
 		cerber.set('validityTime', 30000); // +/- 30 sec
-    cerber.set('clock', function () {
-			return now;
-		});
 	});
 
 	afterEach(function () {
+    mockery.disable();
     configStub.restore();
     nextSpy.reset();
 	});
@@ -65,7 +73,7 @@ describe('cerber factory', function () {
 			expect(nextSpy).to.have.been.calledWith(null, userFixture);
 		});
 		it('should be called with user data on request with timestamp within accepted range', function () {
-			requestMock.headers.authorization.set('ts', ts.now + 15000).set('hash', '25297b72b1dec5a82dcfc9a3ed605944c072d1b0');
+			requestMock.headers.authorization.set('ts', ts.nowPlus15sec).set('hash', 'df8a1a2cd20326e986de83dc66b5dd6cd0878a59');
       cerber.authorizeRequest(requestMock, nextSpy);
       expect(nextSpy).to.have.been.calledWith(null, userFixture);
 		});
@@ -84,13 +92,8 @@ describe('cerber factory', function () {
       cerber.authorizeRequest(requestMock, nextSpy);
       expect(nextSpy).to.have.been.calledWithMatch(CerberError);
 		});
-		it('should be called with an Error when request has expired past timestamp', function () {
-			requestMock.headers.authorization.set('ts', ts.now - 60000);
-      cerber.authorizeRequest(requestMock, nextSpy);
-      expect(nextSpy).to.have.been.calledWithMatch(CerberError);
-		});
-		it('should be called with an Error when request has feature timestamp out of bounds', function () {
-			requestMock.headers.authorization.set('ts', ts.now + 60000);
+		it('should be called with an Error when request has timestamp out of bounds', function () {
+			requestMock.headers.authorization.set('ts', ts.invalid);
       cerber.authorizeRequest(requestMock, nextSpy);
       expect(nextSpy).to.have.been.calledWithMatch(CerberError);
 		});
@@ -100,7 +103,7 @@ describe('cerber factory', function () {
       expect(nextSpy).to.have.been.calledWithMatch(CerberError);
 		});
 		it('should be called with user data for valid request over HTTPS', function () {
-			requestMock.headers.authorization.set('hash', '9b4d61ea71ba863f60501dd59d3d813c8d711a10');
+			requestMock.headers.authorization.set('hash', '1bb0cf7fc397793397d623eff6a7cb2bb2a0b9e9');
 			requestMock.connection.encrypted = true;
       cerber.authorizeRequest(requestMock, nextSpy);
       expect(nextSpy).to.have.been.calledWith(null, userFixture);
