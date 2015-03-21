@@ -8,7 +8,7 @@
     "url": "https://github.com/kwiniarski/spiral-cerber"
   },
   "engines": {
-    "node": ">=0.10 <0.11"
+    "node": ">=0.10"
   },
   "engineStrict": true,
   "scripts": {
