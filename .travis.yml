@@ -10,7 +10,8 @@ deploy:
   provider: npm
   email: krzysiek@codilogy.com
   api_key:
-    secure: DY5jPrmjzeAGgmv5rk2OlVhQjIptJaCvyfcfTxQzp4y1wE6j2zmSG4xkkHIcrsonRyyW3RRI/IuBZwdwex5OfuJ2qOd3UCJYTr+lVg3QubRBj4XaxloQVoMuYMIclngYZ5Kvnx41NwT1KCu7pTEZdn0VBOKgQRZMafSKBDyIhZU=
+     secure: KJqi/YE8aTH+ZcH9g6awDD4ZmyciVtdWahwUTmc2CH2KySHvR+SR/WCNDyjxqn6iVCWuDrJNr6OA91PI4+HxL6RXoLe7Z3IhtoD9QlVxbenhK0ZmN7Q/NXN4w3+yTlgO7RCg9DsIpo6u3M6wLXNyBRBUIuWAnYU1gJuJ8DMiS/4=
   on:
+    node: 0.12
     tags: true
     repo: kwiniarski/spiral-cerber
